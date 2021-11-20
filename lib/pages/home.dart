@@ -306,9 +306,12 @@ class ControlButtons extends StatelessWidget {
             },
           ),
 
-        IconButton(
-          icon: const Icon(Icons.skip_previous_outlined),
-          onPressed: player.hasPrevious ? player.seekToPrevious : null,
+         StreamBuilder<SequenceState?>(
+          stream: player.sequenceStateStream,
+          builder: (context, snapshot) => IconButton(
+            icon: const Icon(Icons.skip_previous),
+            onPressed: player.hasPrevious ? player.seekToPrevious : null,
+          ),
         ),
 
         /// This StreamBuilder rebuilds whenever the player state changes, which
@@ -351,9 +354,12 @@ class ControlButtons extends StatelessWidget {
           },
         ),
 
-        IconButton(
-          icon: const Icon(Icons.skip_next),
-          onPressed: player.hasNext ? player.seekToNext : null,
+        StreamBuilder<SequenceState?>(
+          stream: player.sequenceStateStream,
+          builder: (context, snapshot) => IconButton(
+            icon: const Icon(Icons.skip_next),
+            onPressed: player.hasNext ? player.seekToNext : null,
+          ),
         ),
 
         // Opens speed slider dialog
